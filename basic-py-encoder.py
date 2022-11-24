@@ -2,32 +2,32 @@
 import numpy as np
 import string
 
-# encode - plaintext is reversed, inserted every odd position and surrounded by ciphertext
+# encode - plaintext is reversed, inserted every odd position and surrounded by padding
 def encode(plaintext):
-    ciphertext = ''
+    payload = ''
     plaintext = plaintext[::-1]
-    length = len(plaintext) 
+    length = len(plaintext)
     padding = np.random.choice(list(string.ascii_letters + string.digits + string.punctuation), length)
     for i in range(length):
-        ciphertext = ciphertext + plaintext[i] + padding[i]
-    # Always append additional cipher text when plaintext is odd length
+        payload = payload + plaintext[i] + padding[i]
+    # Always append additional padding when plaintext is odd length
     if length % 2 != 0:
-        ciphertext = np.random.choice(list(string.ascii_letters + string.digits + string.punctuation), 1)[0] + ciphertext
-    return ciphertext
+        payload = np.random.choice(list(string.ascii_letters + string.digits + string.punctuation), 1)[0] + payload
+    return payload
 
 # decode - plaintext is extracted on odd positions and then reversed
-def decode(ciphertext):
+def decode(payload):
     plaintext = ''
-    for i in range(len(ciphertext)):
+    for i in range(len(payload)):
         if i % 2 != 0:
-            plaintext = plaintext + ciphertext[i]
+            plaintext = plaintext + payload[i]
     plaintext = plaintext[::-1]
     return plaintext
 
 plaintext = 'Android'
-ciphertext = encode(plaintext)
-print(f"{plaintext} is encoded as {ciphertext}")
+payload = encode(plaintext)
+print(f"{plaintext} is encoded as {payload}")
 
-# ciphertext = '5d;ijo(rqd,nrA('
-plaintext = decode(ciphertext)
-print(f"{ciphertext} is decoded as {plaintext}")
+# padding = '5d;ijo(rqd,nrA('
+plaintext = decode(payload)
+print(f"{payload} is decoded as {plaintext}")
