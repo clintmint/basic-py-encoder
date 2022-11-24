@@ -28,6 +28,6 @@ plaintext = 'Android'
 payload = encode(plaintext)
 print(f"{plaintext} is encoded as {payload}")
 
-# padding = '5d;ijo(rqd,nrA('
+# payload = '5d;ijo(rqd,nrA('
 plaintext = decode(payload)
 print(f"{payload} is decoded as {plaintext}")
